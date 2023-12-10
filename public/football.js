@@ -76,7 +76,7 @@ $$("#tab2").on("tab:show", () => {
     firebase.database().ref(`${documentName}/` + user).on("value", (snapshot) =>{
         const items = snapshot.val();
         const keys = Object.keys(items);
-        //THIS NEEDS TO BE CHANGED TO SOMETHING FITTING THE THEME
+        
         $$("#footballList").html("");
         for(let n = 0; n < keys.length; n++){
             console.log(items[keys[n]])
@@ -111,7 +111,7 @@ $$("#tab2").on("tab:show", () => {
                 </div>
             </div>
             `
-            $$("#footballList").append(card); //THIS ALSO NEEDS TO BE CHANGED
+            $$("#footballList").append(card);
         }
     });
 

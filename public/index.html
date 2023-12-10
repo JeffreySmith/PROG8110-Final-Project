@@ -63,7 +63,7 @@
 									<i class="icon f7-icons">add</i>
 								</a>
 							</div>
-							<!-- THIS NEEDS TO CHANGE-->
+							
 							<div id="footballList">This is for the display of the football memorabilia list</div>
 						</div>
 					</div>
@@ -180,13 +180,14 @@
 						</div>
 					</div>
 					<div class="sheet-modal-inner">
+						<div class="page-content">
 						<ul>
 							<li>
 								<div class="item-content item-input">
 									<div class="item-inner">
-										<label for="item" class="item-title item-label">Item:</label>
+										<label for="item" class="item-title item-label">Name:</label>
 										<div class="item-input-wrap">
-											<input id="item" type="text" name="item" placeholder="Item required" class="">
+											<input id="item" type="text" name="item" placeholder="Merchandise Type" class="">
                                         </div>
 										</div>
 									</div>
@@ -194,9 +195,9 @@
 							<li>
 								<div class="item-content item-input">
 									<div class="item-inner">
-										<label for="store" class="item-title item-label">Store:</label>
+										<label for="clubname" class="item-title item-label">Club Name:</label>
 										<div class="item-input-wrap">
-											<input id="store" type="text" name="store" placeholder="Available at"
+											<input id="clubname" type="text" name="clubname" placeholder="The Club's Name"
 												class="">
 										</div>
 									</div>
@@ -205,7 +206,18 @@
 							<li>
 								<div class="item-content item-input">
 									<div class="item-inner">
-										<label for="store" class="item-title item-label">Image URL:</label>
+										<label for="cost" class="item-title item-label">Price:</label>
+										<div class="item-input-wrap">
+											<input id="cost" type="number" name="price" placeholder="Cost of Item"
+												class="">
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="item-content item-input">
+									<div class="item-inner">
+										<label for="url" class="item-title item-label">Image URL:</label>
 										<div class="item-input-wrap">
 											<input id="url" type="text" name="url" placeholder="image url"
 												class="">
@@ -215,6 +227,7 @@
 								
 							</li>
 						</ul>
+						</div>
 
 					</div>
 				</form>
@@ -226,6 +239,7 @@
 	</div>
 	<script src="./index.js" type="module"></script>
 	<script type="module">
+		
 		import {signIn} from "./index.js"
 		import {addTimeStampReal} from "./football.js"
 		window.addTimeStampReal = addTimeStampReal;
@@ -239,6 +253,7 @@
 		function deleteItem(item){
 			deleteCardItem(item);
 		}
+		/*We have to give global access to these functions so that the buttons will work. Scripts with type module default to local scope*/
 		window.addTimeStamp=addTimeStamp;
 		window.deleteItem=deleteItem;
 	</script>

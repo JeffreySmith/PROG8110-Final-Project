@@ -47,3 +47,6 @@ nav h1{
 #tab2{
     min-height:75vh;
 }
+.sheet-modal{
+    min-height: 400px;
+}
