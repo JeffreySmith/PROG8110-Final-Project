@@ -1,3 +1,10 @@
+You can view this application running live on [firebase](https://learnfirebase-c91d2.web.app)
+
+This is an application for tracking your football (soccer) merch. You can enter in things you'd like to buy, then mark things you've bought. You can also mark something as purchased, as well as delete an item.
+
+Items are separated by users so that users can only see their own items, rather than all items in the database.
+
+
 This is a fork of the following:
 # [loginDemo](https://github.com/rhildred/loginDemo)
 
