@@ -89,25 +89,34 @@ $$("#tab2").on("tab:show", () => {
 
             //THIS WHOLE SECTION NEEDS TO BE REVISED FOR THE FIELDS WE'RE GOING TO USE
             let datePurchased = items[keys[n]].datePurchased;
-            let bought = items[keys[n]].store;
+            let price = items[keys[n]].price;
             let image = items[keys[n]].url;
+            let club = items[keys[n]].clubname;
             console.log(item);
             
             //If the item has a defined datePurchased attribute, have a strikethrough, as per the assignment requirements
-            let nameOutput = datePurchased ? "<s>"+items[keys[n]].item+"</s>" : items[keys[n]].item;
+            let nameOutput = datePurchased ? "<s>"+"Item: "+items[keys[n]].item+"</s>" : "Item: "+items[keys[n]].item;
             
+           
             let dateOutput = datePurchased ? "Purchased on <i>"+items[keys[n]].datePurchased+"</i>" : "";
             
             let imageOutput = image ? `<img style="margin-left:5px" src="${image}" width="80px">` : "";
-            let boughtWhere = bought ? "bought at "+bought : "";
+            let Price = price ? "$"+price: "";
+            Price = datePurchased ? "<s>"+Price+"</s>" : Price;
+            //If club is defined, return it. This way we only see the club name if it's defined
+            let Club = club ? "Club: "+club : "";
             let card = `
             <div class="card">
                 <div style="display:flex;align-items:center" class="card-content card-content-padding">
+                    
                     <div style="display:flex;align-items:center;justify-content:space-between">
                         <p style="margin:0 5px">${nameOutput}</p>
+                        <p style="margin:0 5px">${Price}</p>
+                        <p style="margin:0 5px">${Club}</p>
                         <p style="margin:0 5px">${imageOutput}</p>
-                        <p style="margin:0 5px">${dateOutput} ${boughtWhere}</p>
+                        <p style="margin:0 5px">${dateOutput}</p>
                     </div>
+                    
                     <div style="display:flex;margin-left:auto;text-size:12px;width:350px">   
                         <button id="${item.replaceAll(" ","-")}" onclick='addTimeStamp("${item}")' class='button button-active'>I bought this</button>
                         <button style="margin-left:5px;" onclick='deleteItem("${item}")' class='button button-active'>I don't need this</button>
