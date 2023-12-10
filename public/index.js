@@ -42,11 +42,12 @@ $$("#loginForm").on("submit", (evt) => {
     });
 
 });
-
+/* This is needed for us to use google auth*/
 export function signIn(){
     console.log("Trying to sign in :(")
     let provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    //We're using the popup version, rather than the redirect version
     firebase.auth().signInWithPopup(provider)
     .then((result)=>{
         var credential = result.credential;
@@ -67,11 +68,10 @@ export function signIn(){
     })
 }
 
-
+//This is part of the provided code
 $$("#signUpForm").on("submit", (evt) => {
     evt.preventDefault();
     var formData = app.form.convertToData('#signUpForm');
-    //alert("clicked Sign Up: " + JSON.stringify(formData));
     firebase.auth().createUserWithEmailAndPassword(formData.username, formData.password).then(
         () => {
             // could save extra info in a profile here I think.
@@ -87,12 +87,12 @@ $$("#signUpForm").on("submit", (evt) => {
     });
 
 });
-
+//This is also part of the original code
 $$("#logout").on("click", () => {
     firebase.auth().signOut().then(() => {
         // Sign-out successful.
         console.log("Sucessfully signed out");
-        //document.getElementById("googleLogin").style="visibility:display;"
+        
 
     }).catch((e) => {
         console.log(`Error logging out: ${e}`)

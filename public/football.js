@@ -6,7 +6,9 @@ import "https://cdnjs.cloudflare.com/ajax/libs/firebase/7.16.1/firebase-auth.min
 import {app} from "./F7App.js";
 
 const $$ = Dom7;
+//Here's the name of our document. This is used across all of the functions in this file
 let documentName = "footballcollection";
+
 export function deleteCardItem(itemName){
     const database = firebase.database();
     const user = firebase.auth().currentUser.uid;
@@ -14,7 +16,7 @@ export function deleteCardItem(itemName){
     ref.once("value")
     .then(snapshot=>{
         const data = snapshot.val();
-
+        //go through all the items, once we match it, remove that item
         for(const key in data){
             if(data[key].item==itemName){
                 const itemRef = ref.child(key);
@@ -52,7 +54,12 @@ export function addTimeStampReal(itemName){
                 if(!data[key].hasOwnProperty("datePurchased")){
                     console.log("Doesn't have the prop, but matches")
                 }
-                data[key].datePurchased = new Date().toISOString().substring(0,10);         
+                if(data[key].datePurchased){
+                    delete data[key].datePurchased;
+                }
+                else{
+                    data[key].datePurchased = new Date().toISOString().substring(0,10);         
+                }
                 ref.update(data)
                 .then(()=>{
                     console.log("Updated sucessfully");
@@ -75,6 +82,7 @@ $$("#tab2").on("tab:show", () => {
     const user = firebase.auth().currentUser.uid;
     firebase.database().ref(`${documentName}/` + user).on("value", (snapshot) =>{
         const items = snapshot.val();
+        //This just means we bail if there are no items for this user. Helps prevent some typeerrors
         if(items == undefined){
             console.log("No items");
             return;
@@ -87,7 +95,7 @@ $$("#tab2").on("tab:show", () => {
             let item = items[keys[n]].item;
 
 
-            //THIS WHOLE SECTION NEEDS TO BE REVISED FOR THE FIELDS WE'RE GOING TO USE
+            //These are pulled out because for a few of them, we want to add a strikethrough to them depending on the state of the object
             let datePurchased = items[keys[n]].datePurchased;
             let price = items[keys[n]].price;
             let image = items[keys[n]].url;
@@ -97,14 +105,21 @@ $$("#tab2").on("tab:show", () => {
             //If the item has a defined datePurchased attribute, have a strikethrough, as per the assignment requirements
             let nameOutput = datePurchased ? "<s>"+"Item: "+items[keys[n]].item+"</s>" : "Item: "+items[keys[n]].item;
             
-           
+            //only show this if there's a datePurchased attribute
             let dateOutput = datePurchased ? "Purchased on <i>"+items[keys[n]].datePurchased+"</i>" : "";
             
-            let imageOutput = image ? `<img style="margin-left:5px" src="${image}" width="80px">` : "";
+            //This is where our url gets defined, based on if url is defined for this item
+            let imageOutput = image ? `<img style="margin-left:5px;max-width:80px;" src="${image}" width="80px">` : "";
+            
+            //If we have a price, add a '$' to the beginning of it. If there's a datePurchased, also add a strikethrough to it
             let Price = price ? "$"+price: "";
             Price = datePurchased ? "<s>"+Price+"</s>" : Price;
+
             //If club is defined, return it. This way we only see the club name if it's defined
             let Club = club ? "Club: "+club : "";
+            //Inline styling since there are many things that framework7 likes to override. That was a frustrating discovery 
+            //Each card item's buttons have the name of the item as their argument so that we can access that item when we do 
+            //things with the database
             let card = `
             <div class="card">
                 <div style="display:flex;align-items:center" class="card-content card-content-padding">
@@ -131,7 +146,7 @@ $$("#tab2").on("tab:show", () => {
 });
 
 $$(".my-sheet").on("submit", e => {
-    //submitting a new note
+    //submitting the merch info in here
     e.preventDefault();
     const data = app.form.convertToData("#addItem");
     const user = firebase.auth().currentUser.uid;
