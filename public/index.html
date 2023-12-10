@@ -20,7 +20,7 @@
 	<meta name="theme-color" content="#2196f3">
 	<meta name="format-detection" content="telephone=no">
 	<meta name="msapplication-tap-highlight" content="no">
-	<title>Login Demo</title>
+	<title>Football Merch Tracker</title>
 	<link rel="apple-touch-icon" href="img/f7-icon-square.png">
 	<link rel="icon" href="img/f7-icon.png">
 	<link rel="stylesheet" href="./index.css">
@@ -35,7 +35,7 @@
 			<div class="page">
 				<nav >
 					
-					<h1 class="title sliding">Add Whatever</h1>
+					<h1 class="title sliding">Track Your Football Merch</h1>
 					<!-- <button class="button button-fill" id="googleLogin">Login with google</button> -->
 					
 				</nav>
@@ -208,7 +208,7 @@
 									<div class="item-inner">
 										<label for="cost" class="item-title item-label">Price:</label>
 										<div class="item-input-wrap">
-											<input id="cost" type="number" name="price" placeholder="Cost of Item"
+											<input id="cost" type="number" step="any" name="price" placeholder="Cost of Item"
 												class="">
 										</div>
 									</div>
@@ -241,7 +241,7 @@
 	<script type="module">
 		
 		import {signIn} from "./index.js"
-		import {addTimeStampReal} from "./football.js"
+		import {addTimeStampReal,deleteCardItem} from "./football.js"
 		window.addTimeStampReal = addTimeStampReal;
 		//document.getElementById("googleLogin").addEventListener('click',()=>{signIn()});
 		document.getElementById("googleLoginButton1").addEventListener('click',()=>{signIn()});

@@ -75,6 +75,10 @@ $$("#tab2").on("tab:show", () => {
     const user = firebase.auth().currentUser.uid;
     firebase.database().ref(`${documentName}/` + user).on("value", (snapshot) =>{
         const items = snapshot.val();
+        if(items == undefined){
+            console.log("No items");
+            return;
+        }
         const keys = Object.keys(items);
         
         $$("#footballList").html("");
