@@ -77,7 +77,7 @@ $$("#tab2").on("tab:show", () => {
         const items = snapshot.val();
         const keys = Object.keys(items);
         //THIS NEEDS TO BE CHANGED TO SOMETHING FITTING THE THEME
-        $$("#groceryList").html("");
+        $$("#footballList").html("");
         for(let n = 0; n < keys.length; n++){
             console.log(items[keys[n]])
             let item = items[keys[n]].item;
@@ -111,7 +111,7 @@ $$("#tab2").on("tab:show", () => {
                 </div>
             </div>
             `
-            $$("#groceryList").append(card); //THIS ALSO NEEDS TO BE CHANGED
+            $$("#footballList").append(card); //THIS ALSO NEEDS TO BE CHANGED
         }
     });
 
