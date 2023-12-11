@@ -8,8 +8,8 @@ import {app} from "./F7App.js";
 const $$ = Dom7;
 //Here's the name of our document. This is used across all of the functions in this file
 let documentName = "footballcollection";
-
-export function deleteCardItem(itemName){
+//NEED TO CHANGE EVERYTHING TO USE UUIDS SO YOU DON'T DELETE ALL THE ITEMS WITH THAT NAME (OR THE FIRST ONE)
+export function deleteCardItem(itemUUID){
     const database = firebase.database();
     const user = firebase.auth().currentUser.uid;
     const ref = database.ref(`${documentName}/${user}`);
@@ -18,11 +18,11 @@ export function deleteCardItem(itemName){
         const data = snapshot.val();
         //go through all the items, once we match it, remove that item
         for(const key in data){
-            if(data[key].item==itemName){
+            if(data[key].uuid==itemUUID){
                 const itemRef = ref.child(key);
                 itemRef.remove()
                 .then(()=>{
-                    console.log(`Removed ${itemName} successfully`);
+                    console.log(`Removed ${itemUUID} successfully`);
                 })
                 .catch((error)=>{
                     console.error(`Something went wrong: ${error}`);
@@ -36,7 +36,7 @@ export function deleteCardItem(itemName){
       });
 }
 //This is the function that adds a timestamp to an item. Really, it adds a "datePurchased" attribute to the document
-export function addTimeStampReal(itemName){
+export function addTimeStampReal(itemUUID){
     const database = firebase.database();
     const user = firebase.auth().currentUser.uid;
     const ref = database.ref(`${documentName}/${user}`);
@@ -45,7 +45,7 @@ export function addTimeStampReal(itemName){
         const data = snapshot.val();
         
         for(const key in data){   
-            if(data[key].item == itemName){
+            if(data[key].uuid == itemUUID){
                
                 
                 if(!data[key].hasOwnProperty("datePurchased")){
@@ -92,8 +92,9 @@ $$("#tab2").on("tab:show", () => {
         for(let n = 0; n < keys.length; n++){
             console.log(items[keys[n]])
             let item = items[keys[n]].item;
-
-
+            //We use it's uuid so we can delete a specific item, not just any that match by the name
+            let uuid = items[keys[n]].uuid;
+            
             //These are pulled out because for a few of them, we want to add a strikethrough to them depending on the state of the object
             let datePurchased = items[keys[n]].datePurchased;
             let price = items[keys[n]].price;
@@ -132,8 +133,8 @@ $$("#tab2").on("tab:show", () => {
                     </div>
                     
                     <div style="display:flex;margin-left:auto;text-size:12px;width:350px">   
-                        <button id="${item.replaceAll(" ","-")}" onclick='addTimeStampReal("${item}")' class='button button-active'>I bought this</button>
-                        <button style="margin-left:5px;" onclick='deleteCardItem("${item}")' class='button button-active'>I don't need this</button>
+                        <button id="${item.replaceAll(" ","-")}" onclick='addTimeStampReal("${uuid}")' class='button button-active'>I bought this</button>
+                        <button style="margin-left:5px;" onclick='deleteCardItem("${uuid}")' class='button button-active'>I don't need this</button>
                     </div>
                 </div>
             </div>
@@ -150,6 +151,8 @@ $$(".my-sheet").on("submit", e => {
     const data = app.form.convertToData("#addItem");
     const user = firebase.auth().currentUser.uid;
     const id = new Date().toISOString().replace(".", "_");
+    const uuid = crypto.randomUUID();
+    data.uuid = uuid;
     firebase.database().ref(`${documentName}/` + user + "/" + id).set(data);
     app.sheet.close(".my-sheet", true);
 });
