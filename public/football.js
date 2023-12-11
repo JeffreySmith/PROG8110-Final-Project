@@ -108,7 +108,7 @@ $$("#tab2").on("tab:show", () => {
 
 
             //If the item has a defined datePurchased attribute, have a strikethrough, as per the assignment requirements
-            let nameOutput = datePurchased ? "<s>"+"Item: "+items[keys[n]].item+"</s>" : "Item: "+items[keys[n]].item;
+            let nameOutput = datePurchased ? "<s>"+"<strong>Item</strong>: "+items[keys[n]].item+"</s>" : "<strong>Item</strong>: "+items[keys[n]].item;
             
             //only show this if there's a datePurchased attribute
             let dateOutput = datePurchased ? "Purchased on <i>"+items[keys[n]].datePurchased+"</i>" : "";
@@ -117,11 +117,11 @@ $$("#tab2").on("tab:show", () => {
             let imageOutput = image ? `<img style="margin-left:5px;max-width:80px;" src="${image}" width="80px">` : "";
             
             //If we have a price, add a '$' to the beginning of it. If there's a datePurchased, also add a strikethrough to it
-            let Price = price ? "$"+price: "";
-            Price = datePurchased ? "<s>"+Price+"</s>" : Price;
+            let Price = price ? "<strong>Cost</strong>: $"+price: "";
+
 
             //If club is defined, return it. This way we only see the club name if it's defined
-            let Club = club ? "Club: "+club : "";
+            let Club = club ? "<strong>Club</strong>: "+club : "";
             //Inline styling since there are many things that framework7 likes to override. That was a frustrating discovery 
             //Each card item's buttons have the name of the item as their argument so that we can access that item when we do 
             //things with the database
