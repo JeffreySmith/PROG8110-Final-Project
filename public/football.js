@@ -9,6 +9,7 @@ const $$ = Dom7;
 //Here's the name of our document. This is used across all of the functions in this file
 let documentName = "footballcollection";
 
+//If the user is logged in with google auth, they won't have to reload to see changes after they delete an item
 export function deleteCardItem(itemUUID){
     const database = firebase.database();
     const user = firebase.auth().currentUser.uid;
@@ -29,7 +30,6 @@ export function deleteCardItem(itemUUID){
                 })
             }
         }
-
     })
     .catch(error => {
         console.error("Error reading data:", error);
