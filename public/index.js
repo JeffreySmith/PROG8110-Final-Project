@@ -14,10 +14,11 @@ const $$ = Dom7;
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         app.tab.show("#tab2", true);
-        
+        console.log(user.email);
+        document.getElementById("title").innerHTML=`Football Merch Tracker - ${user.email}`;
     } else {
         app.tab.show("#tab1", true);
-        
+        document.getElementById("title").innerHTML = "Football Merch Tracker";
         console.log("logged out");
     }
 });
@@ -51,9 +52,11 @@ export function signIn(){
         var credential = result.credential;
         var token = credential.accessToken;
         var user = result.user;
-        
+       
+        console.log(user);
+        console.log(token);
     }).then(()=>{
-        //We have to close both of these. I forgot to add both, so when you signed up with google (rather than login), the screen would stay open 
+        //We have to close both of these. I forgot to add both originally, so when you signed up with google (rather than login), the screen would stay open 
         //even if you had successfully signed up using your google account
         app.loginScreen.close(".loginYes",true);
         app.loginScreen.close(".signupYes", true);
