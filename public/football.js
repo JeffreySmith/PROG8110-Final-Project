@@ -125,25 +125,26 @@ $$("#tab2").on("tab:show", () => {
             //Inline styling since there are many things that framework7 likes to override. That was a frustrating discovery 
             //Each card item's buttons have the name of the item as their argument so that we can access that item when we do 
             //things with the database
+            
             let card = `
-            <div class="card">
-                <div style="display:flex;align-items:center" class="card-content card-content-padding">
-                    
-                    <div style="display:flex;align-items:center;justify-content:space-between">
-                        <p style="margin:0 5px">${nameOutput}</p>
-                        <p style="margin:0 5px">${Price}</p>
-                        <p style="margin:0 5px">${Club}</p>
-                        <p style="margin:0 5px">${imageOutput}</p>
-                        <p style="margin:0 5px">${dateOutput}</p>
+            <div style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 15px;" class="card">
+                <div style="display: flex; align-items: center; justify-content: space-between;" class="card-content card-content-padding">
+                    <div style="display: flex; align-items: center;" class="card-details">
+                        <div style="margin-right: 20px; min-width:200px" class="card-info">
+                            <p style="margin: 5px 0;" class="card-name">${nameOutput}</p>
+                            <p style="margin: 5px 0;" class="card-price">${Price}</p>
+                            <p style="margin: 5px 0;" class="card-club">${Club}</p>
+                            <p style="margin: 5px 0;" class="card-image">${imageOutput}</p>
+                            <p style="margin: 5px 0;" class="card-date">${dateOutput}</p>
+                        </div>
+                        
                     </div>
-                    
-                    <div style="display:flex;margin-left:auto;text-size:12px;width:350px">   
-                        <button id="${item.replaceAll(" ","-")}" onclick='addTimeStampReal("${uuid}")' class='button button-active'>I bought this</button>
-                        <button style="margin-left:5px;" onclick='deleteCardItem("${uuid}")' class='button button-active'>I don't need this</button>
+                    <div style="display:flex; align-items:center; margin-left:auto; width:350px" class="card-actions">
+                        <button style="margin-left: 10px; background-color: #4caf50; color: #fff;" id="${item.replaceAll(" ", "-")}" onclick='addTimeStampReal("${uuid}")' class='button button-active'>I bought this</button>
+                        <button style="margin-left: 10px; background-color: #d32f2f; color: #fff;" onclick='deleteCardItem("${uuid}")' class='button button-active'>I don't need this</button>
                     </div>
                 </div>
-            </div>
-            `
+            </div>`
             $$("#footballList").append(card);
         }
         console.log("Total cost: "+collectionTotal);

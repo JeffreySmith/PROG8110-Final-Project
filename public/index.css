@@ -59,3 +59,17 @@ nav h1{
     letter-spacing:-1px;
     margin-right:25px;
 }
+
+@media screen and (max-width: 600px) {
+    .card-content{
+        flex-direction:column;
+        align-content:center;
+        justify-content:center;
+    }
+    .card-info{
+        margin-bottom:25px;
+        justify-content:center;
+        align-items:center;
+    }
+    
+}
