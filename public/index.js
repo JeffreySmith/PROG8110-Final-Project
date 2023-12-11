@@ -58,7 +58,7 @@ export function signIn(){
         app.loginScreen.close(".loginYes",true);
         app.loginScreen.close(".signupYes", true);
         $$("#signUpError").html = "";
-        location.reload(true);
+        
         
     }).catch((error)=>{
         var errorCode = error.code;
