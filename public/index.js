@@ -15,7 +15,6 @@ firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         app.tab.show("#tab2", true);
         
-        //console.log(user);
     } else {
         app.tab.show("#tab1", true);
         
@@ -30,7 +29,7 @@ $$("#loginForm").on("submit", (evt) => {
         () => {
             // could save extra info in a profile here I think.
             app.loginScreen.close(".loginYes", true);
-            //document.getElementById("googleLogin").style="visibility:hidden;"
+            
         }
     ).catch(function(error) {
         // Handle Errors here.
@@ -44,7 +43,6 @@ $$("#loginForm").on("submit", (evt) => {
 });
 /* This is needed for us to use google auth*/
 export function signIn(){
-    console.log("Trying to sign in :(")
     let provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     //We're using the popup version, rather than the redirect version
@@ -55,7 +53,10 @@ export function signIn(){
         var user = result.user;
         
     }).then(()=>{
+        //We have to close both of these. I forgot to add both, so when you signed up with google (rather than login), the screen would stay open 
+        //even if you had successfully signed up using your google account
         app.loginScreen.close(".loginYes",true);
+        app.loginScreen.close(".signupYes", true);
         $$("#signUpError").html = "";
         
     }).catch((error)=>{

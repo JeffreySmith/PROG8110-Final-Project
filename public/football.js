@@ -36,6 +36,7 @@ export function deleteCardItem(itemUUID){
       });
 }
 //This is the function that adds a timestamp to an item. Really, it adds a "datePurchased" attribute to the document
+//It will remove it if it already exists
 export function addTimeStampReal(itemUUID){
     const database = firebase.database();
     const user = firebase.auth().currentUser.uid;
@@ -47,10 +48,6 @@ export function addTimeStampReal(itemUUID){
         for(const key in data){   
             if(data[key].uuid == itemUUID){
                
-                
-                if(!data[key].hasOwnProperty("datePurchased")){
-                    console.log("Doesn't have the prop, but matches")
-                }
                 //If there's already a datePurchased Prop, delete it
                 if(data[key].datePurchased){
                     delete data[key].datePurchased;
