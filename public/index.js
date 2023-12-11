@@ -29,7 +29,7 @@ $$("#loginForm").on("submit", (evt) => {
         () => {
             // could save extra info in a profile here I think.
             app.loginScreen.close(".loginYes", true);
-            
+            location.reload(true);
         }
     ).catch(function(error) {
         // Handle Errors here.
@@ -58,6 +58,7 @@ export function signIn(){
         app.loginScreen.close(".loginYes",true);
         app.loginScreen.close(".signupYes", true);
         $$("#signUpError").html = "";
+        location.reload(true);
         
     }).catch((error)=>{
         var errorCode = error.code;
@@ -66,6 +67,11 @@ export function signIn(){
         var email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
+        $$("#signUpError").html(errorCode + " error " + errorMessage)
+        console.log(`Error code: ${errorCode}`);
+        console.log(`Error Message: ${errorMessage}`);
+        console.log(`Email: ${email}`);
+        console.log(`Credential Type: ${credential}`);
     })
 }
 
@@ -95,7 +101,8 @@ $$("#logout").on("click", () => {
     firebase.auth().signOut().then(() => {
         // Sign-out successful.
         console.log("Sucessfully signed out");
-        
+        //Make sure to clear the list of items on logout
+        $$("#footballList").html("");
 
     }).catch((e) => {
         console.log(`Error logging out: ${e}`)
