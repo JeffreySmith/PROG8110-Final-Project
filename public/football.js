@@ -43,20 +43,19 @@ export function addTimeStampReal(itemName){
     ref.once("value")
     .then(snapshot=>{
         const data = snapshot.val();
-        console.log(data);
-        console.log(itemName);
-        for(const key in data){
-            console.log(key);
-            
+        
+        for(const key in data){   
             if(data[key].item == itemName){
-                console.log("so this isn't running?")
-                console.log(data[key].item);
+               
+                
                 if(!data[key].hasOwnProperty("datePurchased")){
                     console.log("Doesn't have the prop, but matches")
                 }
+                //If there's already a datePurchased Prop, delete it
                 if(data[key].datePurchased){
                     delete data[key].datePurchased;
                 }
+                //otherwise, create a new one
                 else{
                     data[key].datePurchased = new Date().toISOString().substring(0,10);         
                 }
@@ -133,8 +132,8 @@ $$("#tab2").on("tab:show", () => {
                     </div>
                     
                     <div style="display:flex;margin-left:auto;text-size:12px;width:350px">   
-                        <button id="${item.replaceAll(" ","-")}" onclick='addTimeStamp("${item}")' class='button button-active'>I bought this</button>
-                        <button style="margin-left:5px;" onclick='deleteItem("${item}")' class='button button-active'>I don't need this</button>
+                        <button id="${item.replaceAll(" ","-")}" onclick='addTimeStampReal("${item}")' class='button button-active'>I bought this</button>
+                        <button style="margin-left:5px;" onclick='deleteCardItem("${item}")' class='button button-active'>I don't need this</button>
                     </div>
                 </div>
             </div>

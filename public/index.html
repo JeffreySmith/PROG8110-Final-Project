@@ -24,6 +24,7 @@
 	<link rel="apple-touch-icon" href="img/f7-icon-square.png">
 	<link rel="icon" href="img/f7-icon.png">
 	<link rel="stylesheet" href="./index.css">
+	<script src="https://kit.fontawesome.com/91d952eaf3.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -34,9 +35,9 @@
 		<div class="view view-main view-init ios-edges" data-url="/">
 			<div class="page">
 				<nav >
-					
+					<i style="margin-left:15px" id="icon" class="fa-solid fa-futbol fa-2xl"></i>
 					<h1 class="title sliding">Football Merch Tracker</h1>
-					<!-- <button class="button button-fill" id="googleLogin">Login with google</button> -->
+					
 					
 				</nav>
 				<main class="page-content">
@@ -242,20 +243,15 @@
 		
 		import {signIn} from "./index.js"
 		import {addTimeStampReal,deleteCardItem} from "./football.js"
+		/*We have to give global access to these functions so that the buttons will work. Scripts with type module default to local scope*/
 		window.addTimeStampReal = addTimeStampReal;
-		//document.getElementById("googleLogin").addEventListener('click',()=>{signIn()});
+		window.deleteCardItem = deleteCardItem;
+		//Adds signing in with google
 		document.getElementById("googleLoginButton1").addEventListener('click',()=>{signIn()});
 		document.getElementById("googleLoginButton2").addEventListener('click',()=>{signIn()});
-		function addTimeStamp(item){
-    		console.log(item);
-			addTimeStampReal(item);
-		}
-		function deleteItem(item){
-			deleteCardItem(item);
-		}
-		/*We have to give global access to these functions so that the buttons will work. Scripts with type module default to local scope*/
-		window.addTimeStamp=addTimeStamp;
-		window.deleteItem=deleteItem;
+		
+		
+		
 	</script>
 		
 
