@@ -170,5 +170,7 @@ $$(".my-sheet").on("submit", e => {
     const uuid = crypto.randomUUID();
     data.uuid = uuid;
     firebase.database().ref(`${documentName}/` + user + "/" + id).set(data);
+    //Otherwise, the form will still be filled with whatever data was previously set, even if you log out (This would be a very bad thing)
+    document.getElementById("addItem").reset()
     app.sheet.close(".my-sheet", true);
 });
