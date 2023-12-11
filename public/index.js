@@ -57,7 +57,7 @@ export function signIn(){
     }).then(()=>{
         app.loginScreen.close(".loginYes",true);
         $$("#signUpError").html = "";
-        document.getElementById("googleLogin").style="visibility:hidden;"
+        
     }).catch((error)=>{
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -89,6 +89,8 @@ $$("#signUpForm").on("submit", (evt) => {
 });
 //This is also part of the original code
 $$("#logout").on("click", () => {
+    //Reset the totalCost so we don't show the value after the user logs out
+    document.getElementById("totalCost").innerHTML = "";
     firebase.auth().signOut().then(() => {
         // Sign-out successful.
         console.log("Sucessfully signed out");
@@ -96,6 +98,6 @@ $$("#logout").on("click", () => {
 
     }).catch((e) => {
         console.log(`Error logging out: ${e}`)
-        // An error happened.
+        
     });
 });

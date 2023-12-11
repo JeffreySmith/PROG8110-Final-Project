@@ -8,7 +8,7 @@ import {app} from "./F7App.js";
 const $$ = Dom7;
 //Here's the name of our document. This is used across all of the functions in this file
 let documentName = "footballcollection";
-//NEED TO CHANGE EVERYTHING TO USE UUIDS SO YOU DON'T DELETE ALL THE ITEMS WITH THAT NAME (OR THE FIRST ONE)
+
 export function deleteCardItem(itemUUID){
     const database = firebase.database();
     const user = firebase.auth().currentUser.uid;
@@ -88,6 +88,8 @@ $$("#tab2").on("tab:show", () => {
         }
         const keys = Object.keys(items);
         
+        let collectionTotal = 0;
+
         $$("#footballList").html("");
         for(let n = 0; n < keys.length; n++){
             console.log(items[keys[n]])
@@ -102,6 +104,12 @@ $$("#tab2").on("tab:show", () => {
             let club = items[keys[n]].clubname;
             console.log(item);
             
+            //If the user purchased something, include it in their total collection value
+            if(datePurchased){
+                collectionTotal += parseFloat(price);
+            }
+
+
             //If the item has a defined datePurchased attribute, have a strikethrough, as per the assignment requirements
             let nameOutput = datePurchased ? "<s>"+"Item: "+items[keys[n]].item+"</s>" : "Item: "+items[keys[n]].item;
             
@@ -141,8 +149,18 @@ $$("#tab2").on("tab:show", () => {
             `
             $$("#footballList").append(card);
         }
+        console.log("Total cost: "+collectionTotal);
+        //Show the total value of the users website
+        if(collectionTotal>0){
+            $$("totalCost").val("$"+collectionTotal.toFixed(2));
+            document.getElementById("totalCost").innerHTML="Total collection value: $"+collectionTotal.toFixed(2);
+        }
+        //But if there isn't currently a value, don't show it
+        else{
+            document.getElementById("totalCost").innerHTML="";
+        }
     });
-
+    
 });
 
 $$(".my-sheet").on("submit", e => {
@@ -151,6 +169,7 @@ $$(".my-sheet").on("submit", e => {
     const data = app.form.convertToData("#addItem");
     const user = firebase.auth().currentUser.uid;
     const id = new Date().toISOString().replace(".", "_");
+    //Generate random UUID when the item is created
     const uuid = crypto.randomUUID();
     data.uuid = uuid;
     firebase.database().ref(`${documentName}/` + user + "/" + id).set(data);

@@ -53,3 +53,9 @@ nav h1{
 .sheet-modal{
     min-height: 400px;
 }
+#totalCost{
+    margin-left:auto;
+    font-size:24px;
+    letter-spacing:-1px;
+    margin-right:25px;
+}
